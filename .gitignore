@@ -1,6 +1,7 @@
 *.*
 !*.py
-!.gitignore
-!*.csv
 !*.json
+!*.csv
+!.gitignore
 !README.md
+pruebas.py
