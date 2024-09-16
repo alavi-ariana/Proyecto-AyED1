@@ -1,16 +1,14 @@
-"""MENÚ PRINCIPAL"""
-
+"""PROGRAMA PRINCIPAL"""
 import os
+import auxiliar as auxi
 from tabulate import tabulate
 
-
-def clear_screen():
+def clear_screen() -> None:
     """Esta funcion limpia la pantalla a medida que el usuario navega entre las opciones."""
     os.system("cls" if os.name == "nt" else "clear")
-    return None
 
 
-def mostrar_menu_principal():
+def mostrar_menu_principal() -> None:
     """Muestra el menú principal."""
     menu = [["1. Buscar libros", "2. Devolver Libros", "3. Salir del programa"]]
     titulo = "MENÚ PRINCIPAL"
@@ -20,14 +18,13 @@ def mostrar_menu_principal():
         tabulate(menu, tablefmt="fancy_grid", colalign=("center", "center", "center"))
     )
     print("=" * 65)
-    return None
 
 
-def mostrar_submenu_buscar_libro():
+def mostrar_submenu_buscar_libro() -> None:
     """Muestra el submenú para buscar libros."""
     submenu = [
         [
-            "1. Buscar por tí1tulo",
+            "1. Buscar por título",
             "2. Buscar por autor",
             "3. Buscar por género",
             "4. Volver al menú principal",
@@ -44,27 +41,46 @@ def mostrar_submenu_buscar_libro():
         )
     )
     print("=" * 100)
-    return None
 
-
-def main_menu():
+def main_menu() -> None:
     """Esta funcion controla el flujo del programa."""
 
     while True:
         clear_screen()
         mostrar_menu_principal()
-        choice = input("\n...Seleccione una opción: ")
+        choice = input("\nSeleccione una opción: ")
         match choice:
             case "1":  # BUSCAR LIBRO
                 while True:
                     clear_screen()
                     mostrar_submenu_buscar_libro()
-                    choice = input("\n...Seleccione una opción: ")
+                    choice = input("\nSeleccione una opción: ")
                     match choice:
                         case "1":  # Busqueda de libros por titulo
-                            pass
+                            title_op = input("Ingrese el título del libro a buscar: ")
+                            coincidencias = auxi.search(title_op, 'title')
+                            if len(coincidencias) > 1:
+                                for i, libro in enumerate(coincidencias, 1):
+                                    print(f"{i}. {libro['title']} - {libro['author']}")
+                            elif len(coincidencias) == 1:
+                                print(f"{coincidencias[0]['title']} - {coincidencias[0]['author']}")
+                            else:
+                                print("El libro no fue encontrado.")
+                            sub_choice = input("\nPresione ENTER para continuar o 4 para volver al menú principal")
+                            if sub_choice == "4":
+                                break
                         case "2":  # Busqueda de libros por autor
-                            pass
+                            author_op = input("Ingrese el autor a buscar: ")
+                            coincidencias = auxi.search(author_op, 'author')
+                            if len(coincidencias) > 0:
+                                print(f"{coincidencias[0]['author'].upper()}")
+                                for libro in coincidencias:
+                                    print(f"- {libro['title']}")
+                            else:
+                                print("No hubo coincidencias.")
+                            sub_choice = input("\nPresione ENTER para continuar o 4 para volver al menú principal")
+                            if sub_choice == "4":
+                                break
                         case "3":  # Busqueda de libros por genero
                             pass
                         case "4":  # Volver al menu principal
@@ -89,7 +105,6 @@ def main_menu():
                     "Opción no válida, intente de nuevo. Presione ENTER para continuar."
                 )
                 continue
-    return None
 
 
 if __name__ == "__main__":
