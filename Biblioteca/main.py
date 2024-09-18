@@ -55,6 +55,7 @@ def main_menu() -> None:
                     clear_screen()
                     mostrar_submenu_buscar_libro()
                     choice = input("\nSeleccione una opción: ")
+                    clear_screen()
                     match choice:
                         case "1":  # Busqueda de libros por titulo
                             title_op = input("Ingrese el título del libro a buscar: ")
@@ -66,7 +67,7 @@ def main_menu() -> None:
                                 print(f"{coincidencias[0]['title']} - {coincidencias[0]['author']}")
                             else:
                                 print("El libro no fue encontrado.")
-                            sub_choice = input("\nPresione ENTER para continuar o 4 para volver al menú principal")
+                            sub_choice = input("\nPresione ENTER para continuar o 4 para volver al menú principal: ")
                             if sub_choice == "4":
                                 break
                         case "2":  # Busqueda de libros por autor
@@ -78,7 +79,7 @@ def main_menu() -> None:
                                     print(f"- {libro['title']}")
                             else:
                                 print("No hubo coincidencias.")
-                            sub_choice = input("\nPresione ENTER para continuar o 4 para volver al menú principal")
+                            sub_choice = input("\nPresione ENTER para continuar o 4 para volver al menú principal: ")
                             if sub_choice == "4":
                                 break
                         case "3":  # Busqueda de libros por genero
