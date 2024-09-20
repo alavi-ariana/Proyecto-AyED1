@@ -77,35 +77,3 @@
                     Crea un patron de busqueda usando expresiones regulares.
                     Busca coincidencias en el campo especificado (opcion) de cada libro.
                     Devuelve una lista de libros que coinciden con el término de busqueda.
-
-
-## Funciones de Busqueda
-
-- buscar_por_titulo(libros, titulo):
-
-    Descripcion: Busca libros por titulo.
-
-    Implementacion: Filtra la lista de libros buscando coincidencias en el campo title.
-
-
--   buscar_por_autor(libros, autor):
-
-    Descripcion: Busca libros por autor.
-
-    Implementación: Filtra la lista de libros buscando coincidencias en el campo author.
-
-
-- buscar_por_genero(libros, genero):
-
-    Descripcion: Busca libros por género.
-
-    Implementacion: Filtra la lista de libros buscando coincidencias en el campo genre.
-
-
-- buscar_libros(libros):
-
-    Descripcion: Permite al usuario buscar libros por titulo, autor o genero.
-
-    Implementacion: Muestra un menu para seleccionar el criterio de busqueda.
-    Llama a la funcion correspondiente (buscar_por_titulo, buscar_por_autor, buscar_por_genero) segun la opcion seleccionada.
-    Muestra los resultados de la busqueda.
