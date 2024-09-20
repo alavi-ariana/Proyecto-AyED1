@@ -15,7 +15,7 @@ def leer_prestamos() -> list:
         relacionados con el prestamo: 'isbn-13', 'borrower' y'borrowed_date'.
     """
     directorio = os.getcwd()
-    file_prestamos = os.path.join(directorio, "Proyecto-AyED1", "Biblioteca", "JSON", "prestamos.json")
+    file_prestamos = os.path.join(directorio, "Biblioteca", "JSON", "prestamos.json")
     datos_leidos = []
     try:
         with open (file_prestamos, 'r', encoding='UTF-8') as prestamos:
@@ -40,7 +40,7 @@ def leer_libros() -> list:
         
         """
     directorio = os.getcwd()
-    file_libros = os.path.join(directorio, "Proyecto-AyED1", "Biblioteca", "CSV", "books.csv")
+    file_libros = os.path.join(directorio, "Biblioteca", "CSV", "books.csv")
     libros_leidos = []
     try:
         with open (file_libros, newline='', encoding='UTF-8') as libros:
