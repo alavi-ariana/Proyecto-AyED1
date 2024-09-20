@@ -1,21 +1,21 @@
-"""Programa para armar funciones que se van a utilizar en el programa principal."""
+"""Modulo de funciones auxiliares"""
 import csv
 import json
 import os
 import re
 
 def leer_prestamos() -> list:
-    """ Reads the JSON file containing information about borrowed books and 
-        returns it as a list of dictionaries.
+    """ 
+    Lee el archivo JSON que contiene informacion sobre los prestamos de libros y
+    devuelve el contenido como una lista de diccionarios.
 
-    Returns:
-        list: A list of dictionaries where each dictionary represents a borrowed book record. Each
-            dictionary contains details related to the book loan, such as 'isbn-13', 'borrower', and
-            'borrowed_date'."""
+    Post:
+        -list: Una lista de diccionarios donde cada diccionario representa
+        un registro de prestamo de libro. Cada diccionario contiene detalles 
+        relacionados con el prestamo: 'isbn-13', 'borrower' y'borrowed_date'.
+    """
     directorio = os.getcwd()
-    file_prestamos = os.path.join(
-        directorio, "Proyecto-AyED1", "Biblioteca", "JSON", "prestamos.json"
-        )
+    file_prestamos = os.path.join(directorio, "Proyecto-AyED1", "Biblioteca", "JSON", "prestamos.json")
     datos_leidos = []
     try:
         with open (file_prestamos, 'r', encoding='UTF-8') as prestamos:
@@ -26,20 +26,21 @@ def leer_prestamos() -> list:
         print(f'El archivo {file_prestamos} no se encontró.')
     except json.JSONDecodeError:
         print(f'Error al decodificar el archivo JSON en {file_prestamos}.')
-
     return datos_leidos
 
 def leer_libros() -> list:
-    """ Reads the CSV file containing book information and returns it as a list of dictionaries.
+    """
+    Lee un archivo CSV que contiene informacion sobre los libros y 
+    devuelve el contenido como una lista de diccionarios.
 
-    Returns:
-        list: A list of dictionaries where each dictionary represents a book with details such as
-            'isbn-13', 'title', 'author', 'genre', and 'stock'. Each dictionary corresponds to
-            a row in the CSV file."""
+    Post:
+        -list: Una lista de diccionarios donde cada diccionario representa un
+        libro con los detalles como: 'isbn-13', 'title', 'author', 'genre' y 'stock'. 
+        Cada diccionario corresponde a una fila en el archivo CSV.
+        
+        """
     directorio = os.getcwd()
-    file_libros = os.path.join(
-        directorio, "Proyecto-AyED1", "Biblioteca", "CSV", "books.csv"
-        )
+    file_libros = os.path.join(directorio, "Proyecto-AyED1", "Biblioteca", "CSV", "books.csv")
     libros_leidos = []
     try:
         with open (file_libros, newline='', encoding='UTF-8') as libros:
@@ -50,26 +51,25 @@ def leer_libros() -> list:
         print("Error: No se encontró el archivo csv.")
     except csv.Error as e:
         print(f"Error al leer el archivo CSV: {e}")
-
     return libros_leidos
 
 def search(buscar: str, opcion: str) -> list:
-    """ Search for books based on a given search term and option.
+    """
+    Busca libros segun lo que el usuario seleccione: Por autor, genero o titulo.
 
-    Args:
-        buscar (str): The search term to look for in the specified option.
-        opcion (str): The field to search within the book records (e.g., 'title', 'author').
+    Pre:
+        -buscar (str): Opcion de busqueda que selecciono el usuario.
+        -opcion (str): El campo en el que buscar dentro de los registros de libros.
 
-    Returns:
-        list: A list of dictionaries where each dictionary represents a book
-            that matches the search term in the specified field. Each book dictionary
-            contains the details of the book, such as 'title', 'author', etc."""
+    Post:
+        -list: Una lista de diccionarios donde cada diccionario representa un 
+        libro que coincide con el término de búsqueda en el campo especificado. 
+        Cada diccionario de libro contiene los detalles del libro como 'title', 'author', etc.
+    """
     libros = leer_libros()
-
     pattern = re.compile(re.escape(buscar), re.IGNORECASE)
     coincidencias = []
     for libro in libros:
         if pattern.search(libro[opcion]):
             coincidencias.append(libro)
-
     return coincidencias
