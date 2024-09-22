@@ -13,21 +13,20 @@ def leer_prestamos() -> list:
             dictionary contains details related to the book loan, such as 'isbn-13', 'borrower', and
             'borrowed_date'."""
     directorio = os.getcwd()
+    print(directorio)
     file_prestamos = os.path.join(
-        directorio, "Proyecto-AyED1", "Biblioteca", "JSON", "prestamos.json"
+        directorio, "Biblioteca", "JSON", "prestamos.json"
         )
-    datos_leidos = []
     try:
         with open (file_prestamos, 'r', encoding='UTF-8') as prestamos:
-            datos = json.load(prestamos)
-            for linea in datos:
-                datos_leidos.append(linea)
+            lector = json.load(prestamos)
+            datos = [linea for linea in lector]
     except FileNotFoundError:
         print(f'El archivo {file_prestamos} no se encontró.')
     except json.JSONDecodeError:
         print(f'Error al decodificar el archivo JSON en {file_prestamos}.')
 
-    return datos_leidos
+    return datos
 
 def leer_libros() -> list:
     """ Reads the CSV file containing book information and returns it as a list of dictionaries.
@@ -38,20 +37,18 @@ def leer_libros() -> list:
             a row in the CSV file."""
     directorio = os.getcwd()
     file_libros = os.path.join(
-        directorio, "Proyecto-AyED1", "Biblioteca", "CSV", "books.csv"
+        directorio, "Biblioteca", "CSV", "books.csv"
         )
-    libros_leidos = []
     try:
         with open (file_libros, newline='', encoding='UTF-8') as libros:
             lector = csv.DictReader(libros)
-            for linea in lector:
-                libros_leidos.append(linea)
+            datos = [linea for linea in lector]
     except FileNotFoundError:
         print("Error: No se encontró el archivo csv.")
     except csv.Error as e:
         print(f"Error al leer el archivo CSV: {e}")
 
-    return libros_leidos
+    return datos
 
 def search(buscar: str, opcion: str) -> list:
     """ Search for books based on a given search term and option.
@@ -67,9 +64,4 @@ def search(buscar: str, opcion: str) -> list:
     libros = leer_libros()
 
     pattern = re.compile(re.escape(buscar), re.IGNORECASE)
-    coincidencias = []
-    for libro in libros:
-        if pattern.search(libro[opcion]):
-            coincidencias.append(libro)
-
-    return coincidencias
+    return [libro for libro in libros if pattern.search(libro[opcion])]
