@@ -9,7 +9,6 @@ fetch('../CSV/books.csv')
         const libros = csvToArray(data);
         const tbody = document.querySelector('#tabla-libros tbody');
         
-        // Agregar filas a la tabla
         libros.forEach(libro => {
             const fila = `
                 <tr>
