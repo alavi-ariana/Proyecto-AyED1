@@ -1,12 +1,12 @@
 function csvToArray(csv) {
-    const rows = csv.trim().split("\n").slice(1); // Omitir la primera fila (encabezados)
-    return rows.map(row => row.split(",")); // Convertir cada fila en un array
+    const rows = csv.trim().split("\n").slice(1);
+    return rows.map(row => row.split(","));
 }
 
 fetch('../CSV/books.csv')
     .then(response => response.text())
     .then(data => {
-        const libros = csvToArray(data); // Convertir el CSV en array
+        const libros = csvToArray(data);
         const tbody = document.querySelector('#tabla-libros tbody');
         
         // Agregar filas a la tabla
@@ -19,7 +19,7 @@ fetch('../CSV/books.csv')
                     <td>${libro[3] || 'Sin género'}</td> <!-- Género -->
                     <td>${libro[4] || 'Sin stock'}</td> <!-- Stock -->
                 </tr>`;
-            tbody.innerHTML += fila; // Agregar cada fila a la tabla
+            tbody.innerHTML += fila;
         });
     })
     .catch(error => console.error('Error al cargar el archivo CSV:', error));
