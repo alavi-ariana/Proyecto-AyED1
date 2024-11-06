@@ -28,5 +28,4 @@ def busqueda_titulo(title: str):
         print("El libro no fue encontrado.")
         time.sleep(0.75)
 
-def seleccion_libro():
-    
+#def seleccion_libro():
