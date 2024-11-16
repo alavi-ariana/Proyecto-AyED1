@@ -75,3 +75,21 @@ def leer_prestamos() -> List:
 
     return datos
 """
+
+def leer_json(file_path):
+    try:
+        with open(file_path, 'rt', encoding='UTF-8') as lectura_json:
+            datos = json.load(lectura_json)
+
+#        for libro, info in datos.items():
+#            reviews = info.get('reviews', [])
+#            if reviews:
+#                pass
+    except FileNotFoundError:
+        print(f'El archivo {file_path} no se encontró.')
+        return []
+    except json.JSONDecodeError:
+        print(f'Error al decodificar el archivo JSON en {file_path}.')
+        return []
+
+    return datos

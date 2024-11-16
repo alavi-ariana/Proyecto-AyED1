@@ -83,8 +83,6 @@ def menu_busqueda():
         print(f"{i}. {opcion}")
 
 
-
-
 def buscar_libro():
     while True:
         clear_screen()
@@ -94,9 +92,13 @@ def buscar_libro():
             case "1":
                 clear_screen()
                 title_op = input("Ingrese el nombre del libro a buscar: ")
-                busqueda.busqueda_titulo(title_op)
-                seleccion = input("Seleccione su libro: ")
-                
+                coincidencias = busqueda.busqueda_titulo(title_op)
+                if not coincidencias:
+                    buscar_libro()
+                busqueda.imprimir_coincidencias(coincidencias)
+                libro = busqueda.seleccion_libro(coincidencias)
+                busqueda.ver_reviews(libro)
+                input()
             case "2":
                 clear_screen()
             case "3":
