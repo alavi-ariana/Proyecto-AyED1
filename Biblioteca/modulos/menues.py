@@ -3,6 +3,7 @@ import os
 import time
 from tabulate import tabulate
 from modulos import busqueda
+from modulos import devolucion
 
 def menu_principal() -> None:
     """Dosctring"""
@@ -14,7 +15,8 @@ def menu_principal() -> None:
             case "1":  # BUSCAR LIBRO
                 buscar_libro()
             case "2":  # DEVOLVER LIBRO
-                pass  # Validar input de documento de usuario
+                clear_screen()
+                devolucion.devolver_libro()
             case "3":  # SALIR DEL PROGRAMA
                 clear_screen()
                 print("¡Adiós!")
