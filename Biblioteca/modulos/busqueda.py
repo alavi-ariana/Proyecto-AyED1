@@ -66,4 +66,18 @@ def ver_reviews(libro):
     directorio = os.getcwd()
     file_path = os.path.join(directorio, 'Biblioteca', 'JSON', 'reviews.json')
     datos = funciones.leer_json(file_path)
-    print(datos)
+    #print(libro['title'])
+    if datos:
+        encontrado = False
+        for book, info in datos.items():
+            if book.lower().strip() == libro['title'].lower().strip():
+                encontrado = True
+                reviews = info.get('reviews', [])
+                print(f"{libro['title']}")
+                for review in reviews:
+                    print(f'"- {review}"')
+                break
+        if not encontrado:
+            print("El libro no tiene reviews.")
+    else:
+        print("No hay reviews en la base de datos.")
