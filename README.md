@@ -24,46 +24,21 @@ Un único usuario que administra (El recepcionista de la biblioteca)
 - un .json con el nombre del libro y su puntuación.
 
 # Menu:
-1) Biblioteca. (mostrar disponibilidad del libro, el rating, reviews)
-   
-        a. Ver libros por género. ("quiero buscar en la sección fantasy")
-            se muestran todos los libros pertenecientes del género.
-            input = ingrese su libro de interes (-1 para salir)
+1) Buscar libro.
+    1) Género
+    2) Título
+    3) Autor
+
+    Las 3 muestran los libros que coinciden con la busqueda y los muestran enúmerados para que puedas elegir el libro, se muestran las siguientes opciones.
+    1) Pedir prestado
+        Se solicita dni para ver si está registrado, caso contrario se guarda en el csv. Se guarda el timestamp del momento de pedir el libro para llevar un seguimiento de la devolución.
+        Si se tiene demora en la devolución de algun libro, no se le deja pedir más libros prestados.
+    2) Ver reviews
     
-        b. Ver libros por autor. ("quiero libros de j. k. rowling")
-            se muestran todos los libros pertenecientes al autor.
-            input = ingrese su libro de interes (-1 para salir)
-    
-        c. Busqueda de libro (mediante título) ("quiero buscar el libro 'harry potter'")
-            si se encuentra el libro se mostrará la disponibilidad, el rating y reviews.
-
-3) Prestamo de libros.
-   
-    a. Pedir prestado un libro. (se puede pedir 1 libro por cada ejecución del programa)
-
-        I. Buscar por género.
-        II. Buscar por autor.
-        III. Buscar libro.
-   una vez seleccionado el libro si tiene disponibilidad de stock se realiza la prestación del libro
-   
-    b. Devolver un libro. (se devuelve 1 libro por cada ejecución del programa)
-   
-   se muestran los libros prestados junto con su código.
-   
-   input = ingrese el código del libro a devolver
-   
-   se le suma al stock del libro.
-
-5) Dejar una review.
-
-        input = nombre del libro (-1 para salir)
-    se le muestra un mensaje de "¿es este el libro que busca? SÍ / NO" caso de que sea sí:
-   
-        mensaje = opinión del libro
-        puntuación = del 1 al 5
-   
-    caso contrario se vuelve a pedir nombre del libro.
-
+2) Devolver libro.
+    Se solicita dni para ver los libros que tiene para devolver.
+    Una vez devuelto tiene la opción de si quiere dejar una review o no.
+3) Salir del programa.
 
 Para usar:
 
@@ -72,5 +47,8 @@ Para usar:
     import os
     import random
     import re
+    import time
     from functools import reduce
-    from typing import List
+    from typing import List, Dict, Tuple
+
+## Información util.
