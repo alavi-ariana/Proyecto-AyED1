@@ -1,8 +1,8 @@
 {
-    "Harry Potter and the Philosopher's Stone":{
-        "reviews": ["resenia 1", "resinia 2"]
+    "Harry Potter and the Philosopher's Stone": {
+        "reviews": ["Excelente libro", "Muy entretenido"]
     },
-    "Harry Potter and the Chamber of Secrets":{
-        "reviews": ["hola1", "hola 2"]
+    "1984": {
+        "reviews": ["Inquietante y fascinante", "Un clásico atemporal"]
     }
 }
