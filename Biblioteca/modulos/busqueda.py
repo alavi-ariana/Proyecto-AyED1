@@ -1,8 +1,9 @@
 import re
 import time
 import os
-from funciones import auxiliar
+from funciones import funciones
 from typing import List, Dict
+from tabulate import tabulate
 
 def search_(buscar: str, opcion: str) -> List[Dict]:
     """
@@ -13,7 +14,7 @@ def search_(buscar: str, opcion: str) -> List[Dict]:
     - Retorna:
         - List[Dict]: Lista de diccionarios que representan los libros que coinciden con la busqueda.
     """
-    libros = auxiliar.leer_libros()
+    libros = funciones.leer_libros()
 
     if not libros or opcion not in libros[0]:
         print(f"Error: La clave '{opcion}' no existe en los datos de los libros o los libros no se cargaron correctamente.")
@@ -32,6 +33,8 @@ def busqueda_titulo(title: str) -> List[Dict]:
     """
     return search_(title, 'title')
 
+from tabulate import tabulate
+
 def imprimir_coincidencias(coincidencias: List[Dict]) -> None:
     """
     Imprime las coincidencias encontradas en una lista.
@@ -42,11 +45,11 @@ def imprimir_coincidencias(coincidencias: List[Dict]) -> None:
     """
     if len(coincidencias) > 1:
         print("\nLibros encontrados:")
-        for i, libro in enumerate(coincidencias, 1):
-            print(f"{i}. {libro['title']} - {libro['author']} - ISBN-13: {libro['isbn-13']} - Stock: {libro['stock']}")
+        tabla = [[libro['title'], libro['author'], libro['genre']] for libro in coincidencias]
+        print(tabulate(tabla, headers=["Título", "Autor", "Género"], tablefmt="fancy_grid", colalign=("center", "center", "center")))
     elif len(coincidencias) == 1:
         libro = coincidencias[0]
-        print(f"1. {libro['title']} - {libro['author']} - ISBN-13: {libro['isbn-13']} - Stock: {libro['stock']}")
+        print(tabulate([[libro['title'], libro['author'], libro['genre']]], headers=["Título", "Autor", "Género"], tablefmt="fancy_grid", colalign=("center", "center", "center")))
     else:
         print("El libro no fue encontrado.")
         time.sleep(0.75)
@@ -81,7 +84,7 @@ def ver_reviews(libro: Dict) -> None:
     """
     directorio = os.getcwd()
     file_path = os.path.join(directorio, 'Biblioteca', 'JSON', 'reviews.json')
-    datos = auxiliar.leer_json(file_path)
+    datos = funciones.leer_json(file_path)
     isbn = libro.get('isbn-13')
 
     if datos and isbn in datos:

@@ -3,10 +3,5 @@
         "dni": "12345678",
         "nombre": "Serena",
         "apellido": "Puertas"
-    },
-    {
-        "dni": "87654321",
-        "nombre": "prueba1",
-        "apellido": "prueba2"
     }
 ]
