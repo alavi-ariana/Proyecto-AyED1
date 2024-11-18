@@ -72,16 +72,6 @@ def seleccion_genero(generos):
         print(e)
         return None
 
-
-
-
-
-
-
-
-
-
-
 def seleccion_libro(coincidencias: List[str]) -> str:
     """Se le solicita al usuario que seleccione un libro, de esa selección se busca en los indices
     de coincidencias y retorna la información del libro.
