@@ -4,10 +4,11 @@ import time
 from tabulate import tabulate
 from modulos import busqueda
 from modulos import devolucion
+from funciones import funciones
 
 def menu_principal() -> None:
     """Dosctring"""
-    clear_screen()
+    funciones.clear_screen()
     while True:
         visualizacion_menu_principal()
         choice = input("\nSeleccione una opción: ")
@@ -18,25 +19,17 @@ def menu_principal() -> None:
                 clear_screen()
                 devolucion.devolver_libro()
             case "3":  # SALIR DEL PROGRAMA
-                clear_screen()
+                funciones.clear_screen()
                 print("¡Adiós!")
                 break
             case _:
-                clear_screen()
+                funciones.clear_screen()
                 print(
                     "Opción no válida, intente de nuevo."
                 )
                 time.sleep(0.75)
-                clear_screen()
+                funciones.clear_screen()
                 continue
-
-
-def clear_screen() -> None:
-    """ Esta funcion limpia la pantalla a medida que el usuario navega entre las opciones.
-        Returns: 
-            - None
-    """
-    os.system("cls" if os.name == "nt" else "clear")
 
 def visualizacion_menu_principal() -> None:
     """ Muestra el menú principal.
@@ -77,7 +70,7 @@ def visualizacion_submenu_buscar_libro() -> None:
     )
     print("=" * 100)
 
-def menu_busqueda():
+def menu_busqueda() -> None:
     opciones = ["Pedir prestado",
                 "Ver reviews",
                 "Volver al menú principal",]
@@ -85,33 +78,83 @@ def menu_busqueda():
         print(f"{i}. {opcion}")
 
 
-def buscar_libro():
+def buscar_libro() -> None:
     while True:
-        clear_screen()
+        funciones.clear_screen()
         visualizacion_submenu_buscar_libro()
         op = input("Seleccione una opción: ")
         match op:
-            case "1":
-                clear_screen()
+            case "1": #Busqueda por título
+                funciones.clear_screen()
                 title_op = input("Ingrese el nombre del libro a buscar: ")
-                coincidencias = busqueda.busqueda_titulo(title_op)
+                coincidencias = busqueda.search_(title_op, 'title')
                 if not coincidencias:
+                    print("NO HUBO COINCIDENCIAS.")
+                    time.sleep(0.75)
                     buscar_libro()
                 busqueda.imprimir_coincidencias(coincidencias)
                 libro = busqueda.seleccion_libro(coincidencias)
-                busqueda.ver_reviews(libro)
-                input()
-            case "2":
-                clear_screen()
-            case "3":
-                clear_screen()
-            case "4":
-                clear_screen()
+                while libro:
+                    seleccion = input("DESEA VER REVIEWS O PEDIR PRESTADO EL LIBRO ('r' para reviews, 'p' para prestamo, 'e' para salir): ")
+                    if seleccion.lower() == "e":
+                        break
+                    elif seleccion.lower() == "r":
+                        busqueda.ver_reviews(libro)
+                    elif seleccion.lower() == "p":
+                        pass #ACA VA PEDIR PRESTAMO
+                    else:
+                        print("Debe seleccionar una opción válida.")
+                time.sleep(0.75)
+            case "2": #Busqueda por autor
+                funciones.clear_screen()
+                author_op = input("Ingrese el nombre del autor a buscar: ")
+                coincidencias = busqueda.search_(author_op, 'author')
+                if not coincidencias:
+                    print("NO HUBO COINCIDENCIAS.")
+                    time.sleep(0.75)
+                    buscar_libro()
+                busqueda.imprimir_coincidencias(coincidencias)
+                libro = busqueda.seleccion_libro(coincidencias)
+                while libro:
+                    seleccion = input("DESEA VER REVIEWS O PEDIR PRESTADO EL LIBRO ('r' para reviews, 'p' para prestamo, 'e' para salir): ")
+                    if seleccion.lower() == "e":
+                        break
+                    elif seleccion.lower() == "r":
+                        busqueda.ver_reviews(libro)
+                    elif seleccion.lower() == "p":
+                        pass #ACA VA PEDIR PRESTAMO
+                    else:
+                        print("Debe seleccionar una opción válida.")
+                time.sleep(0.75)
+            case "3": #Busqueda por género
+                funciones.clear_screen()
+                generos = busqueda.imprimir_generos()
+                genero_op = busqueda.seleccion_genero(generos)
+                coincidencias = busqueda.busqueda_genero(genero_op)
+                if not coincidencias:
+                    print("No se encontraron libros en este género.")
+                print(f"\nLIBROS EN EL GÉNERO {genero_op.upper()}:")
+                busqueda.imprimir_coincidencias(coincidencias)
+                for i, libro in enumerate(coincidencias, 1):
+                    print(f"{i}. {libro['title']} - {libro['author']}")
+                libro = busqueda.seleccion_libro(coincidencias)
+                while libro:
+                    seleccion = input("DESEA VER REVIEWS O PEDIR PRESTADO EL LIBRO ('r' para reviews, 'p' para prestamo, 'e' para salir): ")
+                    if seleccion.lower() == "e":
+                        break
+                    elif seleccion.lower() == "r":
+                        busqueda.ver_reviews(libro)
+                    elif seleccion.lower() == "p":
+                        pass #ACA VA PEDIR PRESTAMO
+                    else:
+                        print("Debe seleccionar una opción válida.")
+            case "4": #Volver al menú principal
+                funciones.clear_screen()
                 break
             case _:
-                clear_screen()
+                funciones.clear_screen()
                 print(
                     "Opción no válida, intente de nuevo."
                 )
                 time.sleep(0.75)
-                clear_screen()
+                funciones.clear_screen()

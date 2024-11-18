@@ -50,32 +50,6 @@ def leer_prestamos() -> List:
 
     return datos
 
-"""def leer_usuarios() -> List:
-    Lectura del archivo donde se guardan los usuarios registrados.
-    Returns:
-        - List: Una lista de diccionarios donde cada diccionario representa un usuario registrado.
-                Cada diccionario contiene el dni junto el nombre.
-    
-    directorio = os.getcwd()
-    file_usuarios = os.path.join(
-        directorio, "Biblioteca", "JSON", "usuarios.json"
-    )
-    try:
-        with open (file_usuarios, 'r', encoding='UTF-8') as usuarios:
-            lector = json.load(usuarios)
-            datos = [linea for linea in lector]
-    except FileNotFoundError:
-        print(f'El archivo {file_usuarios} no se encontró.')
-        with open(file_usuarios, 'w', encoding='UTF-8') as usuarios:
-            json.dump([usuarios, indent=4, ensure_ascii=False])
-        return []
-    except json.JSONDecodeError:
-        print(f'Error al decodificar el archivo JSON en {file_usuarios}.')
-        return []
-
-    return datos
-"""
-
 def leer_json(file_path):
     try:
         with open(file_path, 'rt', encoding='UTF-8') as lectura_json:
@@ -86,3 +60,10 @@ def leer_json(file_path):
         return []
 
     return datos
+
+def clear_screen() -> None:
+    """ Esta funcion limpia la pantalla a medida que el usuario navega entre las opciones.
+        Returns: 
+            - None
+    """
+    os.system("cls" if os.name == "nt" else "clear")
