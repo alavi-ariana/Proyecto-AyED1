@@ -2,7 +2,6 @@ import os
 import json
 import time
 from funciones import funciones
-from modulos import menues
 
 def solicitar_dni() -> str:
     '''
@@ -14,7 +13,7 @@ def solicitar_dni() -> str:
         Devuelve el DNI válido del cliente, en caso contrario muestra un mensaje de error
     '''
 
-    menues.clear_screen()
+    funciones.clear_screen()
     while True:
         dni = input("Ingrese el DNI del cliente: ").strip()
 
@@ -147,7 +146,7 @@ def devolver_libro() -> None:
         Guarda la información actualizada. Muestra mensajes de error en caso de que no se puedan devolver libros
     '''
 
-    menues.clear_screen()
+    funciones.clear_screen()
     dni = solicitar_dni()
     prestamos = funciones.leer_prestamos()
 
@@ -156,7 +155,7 @@ def devolver_libro() -> None:
         libros_prestados = prestamo.get('libros_prestados', [])
 
         if libros_prestados:
-            menues.clear_screen()
+            funciones.clear_screen()
             mostrar_libros(libros_prestados)
             num_libro = seleccionar_libro(libros_prestados)
 
@@ -164,7 +163,7 @@ def devolver_libro() -> None:
                 libro_devuelto = libros_prestados.pop(num_libro - 1)
                 prestamos[dni]['cantidad_libros_prestados'] -= 1
                 guardar_prestamos(prestamos)
-                menues.clear_screen()
+                funciones.clear_screen()
                 print(f"El libro '{libro_devuelto['title']}' ha sido devuelto exitosamente.")
                 gestionar_review(libro_devuelto)
             else:
@@ -174,4 +173,4 @@ def devolver_libro() -> None:
     else:
         print("Error: No se encontraron libros prestados para este DNI.")
     time.sleep(1.50)
-    menues.clear_screen()
+    funciones.clear_screen()
