@@ -3,6 +3,7 @@ import os
 import time
 from tabulate import tabulate
 from modulos import busqueda
+from modulos import devolucion
 from funciones import funciones
 
 def menu_principal() -> None:
@@ -15,7 +16,8 @@ def menu_principal() -> None:
             case "1":  # BUSCAR LIBRO
                 buscar_libro()
             case "2":  # DEVOLVER LIBRO
-                pass  # Validar input de documento de usuario
+                clear_screen()
+                devolucion.devolver_libro()
             case "3":  # SALIR DEL PROGRAMA
                 funciones.clear_screen()
                 print("¡Adiós!")
