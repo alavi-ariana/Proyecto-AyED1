@@ -16,7 +16,7 @@ def menu_principal() -> None:
             case "1":  # BUSCAR LIBRO
                 buscar_libro()
             case "2":  # DEVOLVER LIBRO
-                clear_screen()
+                funciones.clear_screen()
                 devolucion.devolver_libro()
             case "3":  # SALIR DEL PROGRAMA
                 funciones.clear_screen()
