@@ -130,24 +130,26 @@ def buscar_libro() -> None:
                 funciones.clear_screen()
                 generos = busqueda.imprimir_generos()
                 genero_op = busqueda.seleccion_genero(generos)
-                coincidencias = busqueda.busqueda_genero(genero_op)
-                if not coincidencias:
-                    print("No se encontraron libros en este género.")
-                print(f"\nLIBROS EN EL GÉNERO {genero_op.upper()}:")
-                busqueda.imprimir_coincidencias(coincidencias)
-                for i, libro in enumerate(coincidencias, 1):
-                    print(f"{i}. {libro['title']} - {libro['author']}")
-                libro = busqueda.seleccion_libro(coincidencias)
-                while libro:
-                    seleccion = input("DESEA VER REVIEWS O PEDIR PRESTADO EL LIBRO ('r' para reviews, 'p' para prestamo, 'e' para salir): ")
-                    if seleccion.lower() == "e":
-                        break
-                    elif seleccion.lower() == "r":
-                        busqueda.ver_reviews(libro)
-                    elif seleccion.lower() == "p":
-                        pass #ACA VA PEDIR PRESTAMO
-                    else:
-                        print("Debe seleccionar una opción válida.")
+                if genero_op:
+                    coincidencias = busqueda.busqueda_genero(genero_op)
+                    if not coincidencias:
+                        print("No se encontraron libros en este género.")
+                    print(f"\nLIBROS EN EL GÉNERO {genero_op.upper()}:")
+                    busqueda.imprimir_coincidencias(coincidencias)
+                    for i, libro in enumerate(coincidencias, 1):
+                        print(f"{i}. {libro['title']} - {libro['author']}")
+                    libro = busqueda.seleccion_libro(coincidencias)
+                    while libro:
+                        seleccion = input("DESEA VER REVIEWS O PEDIR PRESTADO EL LIBRO ('r' para reviews, 'p' para prestamo, 'e' para salir): ")
+                        if seleccion.lower() == "e":
+                            break
+                        elif seleccion.lower() == "r":
+                            busqueda.ver_reviews(libro)
+                        elif seleccion.lower() == "p":
+                            pass #ACA VA PEDIR PRESTAMO
+                        else:
+                            print("Debe seleccionar una opción válida.")
+                time.sleep(0.75)
             case "4": #Volver al menú principal
                 funciones.clear_screen()
                 break
